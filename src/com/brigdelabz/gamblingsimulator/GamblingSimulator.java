@@ -36,17 +36,23 @@ public class GamblingSimulator {
 
 	public static void main(String[] args) {
 		int totalAmount = 0;
+		int winCount = 0;
+		int looseCount = 0;
 		for (int index = 1; index <= DAYS_OF_PLAYING; index++) {
 			int stackeValue = resignGame();
 			totalAmount += stackeValue;
 			System.out.print("Day " + index + ": ");
 			if (stackeValue == win) {
+				winCount++;
 				System.out.println("Player retires game as he wins enough for the day");
 			}
 			if (stackeValue == loose) {
+				looseCount++;
 				System.out.println("Player retires game as he looses enough for the day");
 			}
 		}
-		System.out.println("Total amount after " + DAYS_OF_PLAYING + " is: " + totalAmount);
+		System.out.println("Total number of days won the bet: " + winCount);
+		System.out.println("Total number of days lost the bet: " + looseCount);
+		System.out.println("Total amount after " + DAYS_OF_PLAYING + " days of playing is: " + totalAmount);
 	}
 }
