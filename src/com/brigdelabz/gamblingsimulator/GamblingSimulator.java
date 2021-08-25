@@ -40,10 +40,11 @@ public class GamblingSimulator {
 		int winCount = 0;
 		int looseCount = 0;
 		int luckyMonth = 0;
-		int unluckyMonth = (int) (DAYS_OF_PLAYING * (START_STAKE + (START_STAKE * 0.5)));
+		int unluckyMonth = DAYS_OF_PLAYING * START_STAKE;
 		for (int months = 1; months <= MONTH_PER_YEAR; months++) {
 			winCount = 0;
 			looseCount = 0;
+			totalAmount = 0;
 			for (int index = 1; index <= DAYS_OF_PLAYING; index++) {
 				int stackeValue = resignGame();
 				totalAmount += stackeValue;
