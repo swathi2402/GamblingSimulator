@@ -37,33 +37,31 @@ public class GamblingSimulator {
 
 	public static void main(String[] args) {
 		int totalAmount = 0;
-		int winCount = 0;
-		int looseCount = 0;
 		int luckyMonth = 0;
-		int unluckyMonth = (int) (DAYS_OF_PLAYING * (START_STAKE + (START_STAKE * 0.5)));
-		for (int months = 1; months <= MONTH_PER_YEAR; months++) {
-			winCount = 0;
-			looseCount = 0;
-			for (int index = 1; index <= DAYS_OF_PLAYING; index++) {
-				int stackeValue = resignGame();
-				totalAmount += stackeValue;
-				if (stackeValue == win) {
-					winCount++;
+		int unluckyMonth = DAYS_OF_PLAYING * START_STAKE;
+		int average = unluckyMonth;
+		boolean stop = false;
+		while (!stop) {
+			for (int months = 1; months <= MONTH_PER_YEAR; months++) {
+				totalAmount = 0;
+				for (int index = 1; index <= DAYS_OF_PLAYING; index++) {
+					int stackeValue = resignGame();
+					totalAmount += stackeValue;					
 				}
-				if (stackeValue == loose) {
-					looseCount++;
+				System.out.println("Month " + months + ": ");
+				System.out.println("Total amount at the end of month is: " + totalAmount);
+
+				if (luckyMonth < totalAmount) {
+					luckyMonth = totalAmount;
 				}
-			}
-			System.out.println("Month " + months + ": ");
-			System.out.println("Total number of days won the bet: " + winCount);
-			System.out.println("Total number of days lost the bet: " + looseCount);
-			System.out.println("Total amount at the end of month is: " + totalAmount);
-			
-			if(luckyMonth < totalAmount) {
-				luckyMonth = totalAmount;
-			}
-			if(unluckyMonth > totalAmount) {
-				unluckyMonth = totalAmount;
+				if (unluckyMonth > totalAmount) {
+					unluckyMonth = totalAmount;
+				}
+				if (unluckyMonth < average) {
+					stop = true;
+					System.out.println("** Player quits playing gamble **");
+					break;
+				}
 			}
 		}
 		System.out.println("Total amount in a lucky month: " + luckyMonth);
